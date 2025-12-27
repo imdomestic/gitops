@@ -15,7 +15,7 @@ spec:
         releaseName: shulker
         valueFiles:
           - $values/platform/shulker/values.yaml
-    - repoURL: https://github.com/<YOU>/<REPO>.git
+    - repoURL: https://github.com/imdomestic/gitops.git
       targetRevision: main
       ref: values
   destination:

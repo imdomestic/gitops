@@ -1,0 +1,3 @@
+# Shulker Helm values (optional).
+# Default values are usually enough to get started.
+# Add your overrides here later (resources, replicas, metrics, etc.)

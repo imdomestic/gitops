@@ -1,0 +1,29 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: platform-agones
+  namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "10"
+spec:
+  project: home
+  sources:
+    - repoURL: https://agones.dev/chart/stable
+      chart: agones
+      targetRevision: 1.54.0
+      helm:
+        releaseName: agones
+        valueFiles:
+          - $values/platform/agones/values.yaml
+    - repoURL: https://github.com/<YOU>/<REPO>.git
+      targetRevision: main
+      ref: values
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: agones-system
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true

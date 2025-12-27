@@ -1,0 +1,22 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: app-mc
+  namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "30"
+spec:
+  project: home
+  source:
+    repoURL: https://github.com/<YOU>/<REPO>.git
+    targetRevision: main
+    path: apps/mc
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: mc
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true

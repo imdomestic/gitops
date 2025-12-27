@@ -1,0 +1,13 @@
+# Agones Helm values for Shulker.
+# - Add `shulker-system` (and your actual server namespace, here `mc`) to GameServer namespaces.
+# - Enable allocator and keep it internal (ClusterIP) for in-cluster use.
+gameservers:
+  namespaces:
+    - mc
+    - shulker-system
+
+agones:
+  allocator:
+    install: true
+    service:
+      serviceType: ClusterIP

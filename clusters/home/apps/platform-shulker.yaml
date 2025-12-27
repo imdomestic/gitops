@@ -1,0 +1,29 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: platform-shulker
+  namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "20"
+spec:
+  project: home
+  sources:
+    - repoURL: https://github.com/jeremylvln/Shulker.git
+      targetRevision: v0.13.0
+      path: kube/helm
+      helm:
+        releaseName: shulker
+        valueFiles:
+          - $values/platform/shulker/values.yaml
+    - repoURL: https://github.com/<YOU>/<REPO>.git
+      targetRevision: main
+      ref: values
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: shulker-system
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
